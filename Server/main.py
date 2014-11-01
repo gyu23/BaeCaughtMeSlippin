@@ -1,24 +1,16 @@
 import time
 import requests
 from flask import request, Flask
+YO_API_TOKEN = '5da21321-c977-4643-ae5a-321bda4e3214'
+
 app = Flask(__name__)
-fixedUsername = ""
 @app.route("/")
+
 def yo():
-	print fixedUsername
-	if len(request.args) > 0:
-		username = request.args.get('username')
-		return 1
+	username = request.args.get('username')
+	print "We got a Yo from " + username
+	requests.post("http://api.justyo.co/yo/", data={'api_token': YO_API_TOKEN , 'username': 'NOTYHACK', 'link': 'http://6257f35e.ngrok.com'})
 	return 'OK'
-	# if(username == None):
-	# 	print "lol"
-	# 	return fixedUsername
-	# else:
-	# 	print "yo from " + username
-	# 	requests.post("http://72968c4.ngrok.com", data=username)
-	# 	# fixedUsername = username
-	# 	print fixedUsername
-	# 	return username
 
 if __name__ == "__main__":
-    app.run(port=3000)
+	app.run(port=5000)

@@ -5,7 +5,7 @@ import requests
 from flask import request, Flask
 from setuptools import setup
 
-YO_API_TOKEN = '5da21321-c977-4643-ae5a-321bda4e3214'
+YO_API_TOKEN = 'ia='
 prevSendPost = -1
 ENDUSER = 'NOTYHACK'
 WAITTIME = 5 # number of seconds of time off pillow before another yo can be sent
