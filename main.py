@@ -20,7 +20,7 @@ while True:
 	if (int) (galileo.readline()) == 1:
 		if prevSendPost == -1:
 			prevSendPost = 1
-			requests.post("http://api.justyo.co/yo/", data={'api_token': YO_API_TOKEN , 'username': 'NOTYHACK', 'link': 'http://google.com'})
+			requests.post("http://api.justyo.co/yo/", data={'api_token': YO_API_TOKEN , 'username': 'NOTYHACK', 'link': 'http://time.is'})
 			
 	else:
 		prevSendPost = -1
