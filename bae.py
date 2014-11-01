@@ -27,6 +27,9 @@ while True:
 			requests.post("http://api.justyo.co/yo/", data={'api_token': YO_API_TOKEN , 'username': ENDUSER, 'link': 'http://time.is'})		
 		t0 = time.clock()
 
+	if requests.get("http://72968c4.ngrok.com/sendnum") == 1:
+		#alarm goes off here
+
 # jorge's crap below
 # app = Flask(__name__)
 
@@ -60,3 +63,5 @@ while True:
 	# else:
 	# 	sendPost = -1
 	# 	prevSendPost = -1
+
+
