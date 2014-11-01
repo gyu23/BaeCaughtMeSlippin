@@ -32,20 +32,30 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  var num;
   Meteor.startup(function () {
     // code to run on server at startup
     TimesPressed.remove({});
-    
+    num = 0; 
   });
 
-  var num = 0; 
-  if(TimesPressed.find({num: 1}).count() > 0){
-      console.log("Changed num");
-      num = 1;
-  }
+  
+  // if(TimesPressed.find({num: 1}).count() > 0){
+  //     console.log("Changed num");
+  //     num = 1;
+  //     TimesPressed.remove({});
+  // }
 
   console.log(num);
   Router.route('/sendnum', function(){
+      if(TimesPressed.find({num: 1}).count() > 0){
+        console.log("Changed num");
+        num = 1;
+        TimesPressed.remove({});
+      }
+      else{
+        num = 0;
+      }
       var req = this.request;
       var res = this.response;
       // var num = Session.get("counter");
