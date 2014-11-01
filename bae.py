@@ -8,7 +8,7 @@ from setuptools import setup
 YO_API_TOKEN = '5da21321-c977-4643-ae5a-321bda4e3214'
 prevSendPost = -1
 ENDUSER = 'NOTYHACK'
-WAITTIME = 10 # number of seconds before another yo can be sent
+WAITTIME = 5 # number of seconds of time off pillow before another yo can be sent
 #open serial port to communicate with galileo
 print "opening serial port lol"
 galileo = serial.Serial(4, 9600, timeout = 1)
@@ -23,12 +23,9 @@ prevIn = 0
 while True:
 	nextIn = int(float(galileo.readline()))
 	if (nextIn == 1): # touch has been sensed
-		if int(time.clock() - t0) > WAITTIME and prevIn == 0: # send a yo if WAITTIME seconds have passed and the last serial read sensed nothing
-			t0 = time.clock()
+		if int(time.clock() - t0) > WAITTIME: # send a yo if WAITTIME seconds have passed since the serial read last sensed touching
 			requests.post("http://api.justyo.co/yo/", data={'api_token': YO_API_TOKEN , 'username': ENDUSER, 'link': 'http://time.is'})		
-		prevIn = 1
-	else:
-		prevIn = 0
+		t0 = time.clock()
 
 # jorge's crap below
 # app = Flask(__name__)
