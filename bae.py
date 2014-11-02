@@ -10,15 +10,15 @@ import requests
 from flask import request, Flask
 from setuptools import setup
 
-YO_API_TOKEN = 'ia='
+YO_API_TOKEN = '5da21321-c977-4643-ae5a-321bda4e3214'
 prevSendPost = -1
 ENDUSER = 'NOTYHACK'
 WAITTIME = 5 # number of seconds of time off pillow before another yo can be sent
-DELAY = 200
+DELAY = 250
 BAUD = 9600
 #open serial port to communicate with galileo
 print "opening serial port lol"
-galileo = serial.Serial(5, BAUD, timeout = 1)
+galileo = serial.Serial(4, BAUD, timeout = 1)
 time.sleep(.5) # brief pause to ensure port opened
 
 #galileo sends back a serial stream of digital contact sensor information
@@ -43,17 +43,24 @@ while True:
 		t0 = time.clock()
 	if counter == DELAY:	
 		counter = 0
-		r = requests.get("http://6257f35e.ngrok.com/sendnum")
-	# if requests.head("http://72968c4.ngrok.com/sendnum", allow_redirects=False):
-		if int(r.text) == 0:
-			print "bae alarm armed"
-		elif int(r.text) == 1:
-			galileo.write('H')
-			print"on"
-			time.sleep(2)
-			galileo.write('L')
-			print"off"
+		try:
+			r = requests.get("http://6257f35e.ngrok.com/sendnum", timeout = 5.0)
+			# if requests.head("http://72968c4.ngrok.com/sendnum", allow_redirects=False):
+			try:
+				if int(r.text) == 0:
+					print "bae alarm armed"
+				elif int(r.text) == 1:
+					galileo.write('H')
+					print"on"
+					time.sleep(4.0)
+					galileo.write('L')
+					print"off"
+			except:
+				print "bae alarm armed"
+		except:
+			print "timeout"
 	counter += 1	
+	print counter
 # jorge's crap below
 # app = Flask(__name__)
 
